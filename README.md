@@ -24,7 +24,7 @@ ViewModelProviders.of(fragment, object: ViewModelProvider.Factory {
 instead you can use easy to use extension method inside a `FragmentActivity` or `Fragment`:
 
 ```kotlin
-val model: MyViewModel = MyViewModel()
+val model: MyViewModel = viewModel()
 ```
 
 or when you want to use a custom `ViewModel` with a non-empty constructor:
@@ -37,14 +37,14 @@ When working with `LiveData` it is always a hassle to check for nullable value.
 This library adds some methods to get non-nullable values:
 
 ```kotlin
-model.test().observeRequired(this) {test -> 
+model.test().observeRequired(this) { test -> 
     //test is not null
 }
 
 val test: Test = model.test().requireValue() //test is not null
 ```
 
-**NOTE**: This does not prevent you from setting `null` on a `LiveData`, when using a 
+**NOTE**: This does not prevent you from setting `null` on a `LiveData`. When using a 
 `require`-method on a `LiveData` that holds a `null` value, an exception is thrown.
 
 Installation
