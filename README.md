@@ -44,7 +44,8 @@ model.test().observeRequired(this) {test ->
 val test: Test = model.test().requireValue() //test is not null
 ```
 
-**NOTE**: This does not prevent you from setting null on a ```LiveData```, this will lead to a NPE.
+**NOTE**: This does not prevent you from setting `null` on a `LiveData`, when using a 
+`require`-method on a `LiveData` that holds a `null` value, an exception is thrown.
 
 Installation
 ------------
