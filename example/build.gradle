@@ -11,7 +11,8 @@ android {
         targetSdkVersion 27
         versionCode 1
         versionName "1.0"
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+        dataBinding.enabled = true
     }
     buildTypes {
         release {
@@ -25,4 +26,6 @@ dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlinVersion"
     implementation "com.android.support:appcompat-v7:$supportVersion"
     implementation 'com.android.support.constraint:constraint-layout:1.1.0'
+
+    implementation 'com.github.sihamark:ViewModelExtensions:-SNAPSHOT'
 }

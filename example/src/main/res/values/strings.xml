@@ -1,3 +1,4 @@
 <resources>
 	<string name="app_name">View Model Extensions</string>
+	<string name="button_print">print</string>
 </resources>

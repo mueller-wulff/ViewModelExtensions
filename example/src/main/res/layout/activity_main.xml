@@ -1,18 +1,68 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
 	xmlns:app="http://schemas.android.com/apk/res-auto"
-	xmlns:tools="http://schemas.android.com/tools"
-	android:layout_width="match_parent"
-	android:layout_height="match_parent"
-	tools:context=".MainActivity">
+	xmlns:tools="http://schemas.android.com/tools">
 
-	<TextView
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:text="Hello World!"
-		app:layout_constraintBottom_toBottomOf="parent"
-		app:layout_constraintLeft_toLeftOf="parent"
-		app:layout_constraintRight_toRightOf="parent"
-		app:layout_constraintTop_toTopOf="parent" />
+	<data>
 
-</android.support.constraint.ConstraintLayout>
+		<variable
+			name="text"
+			type="CharSequence" />
+
+		<variable
+			name="number"
+			type="CharSequence" />
+
+		<variable
+			name="onClickPrint"
+			type="Runnable" />
+	</data>
+
+	<android.support.constraint.ConstraintLayout
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		tools:context=".MainActivity">
+
+		<Button
+			android:id="@+id/print"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:onClick="@{() -> onClickPrint.run()}"
+			android:padding="16dp"
+			android:text="@string/button_print"
+			app:layout_constrainedWidth="true"
+			app:layout_constraintBottom_toBottomOf="@+id/string_view"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintTop_toTopOf="parent" />
+
+		<TextView
+			android:id="@+id/string_view"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:gravity="center"
+			android:padding="16dp"
+			android:text="@{text}"
+			android:textAppearance="@style/TextAppearance.AppCompat.Large"
+			app:layout_constrainedWidth="true"
+			app:layout_constraintBottom_toTopOf="@+id/number_view"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintTop_toBottomOf="@+id/print" />
+
+		<TextView
+			android:id="@+id/number_view"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:gravity="center"
+			android:padding="16dp"
+			android:text="@{number}"
+			android:textAppearance="@style/TextAppearance.AppCompat.Large"
+			app:layout_constrainedWidth="true"
+			app:layout_constraintBottom_toBottomOf="parent"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintTop_toBottomOf="@+id/string_view" />
+
+	</android.support.constraint.ConstraintLayout>
+</layout>
