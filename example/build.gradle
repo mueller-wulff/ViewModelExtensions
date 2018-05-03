@@ -6,7 +6,7 @@ apply plugin: 'kotlin-kapt'
 android {
     compileSdkVersion 27
     defaultConfig {
-        applicationId "com.sihamark.viewmodelextensions.example"
+        applicationId "com.muellerwulff.viewmodelextensions.example"
         minSdkVersion 14
         targetSdkVersion 27
         versionCode 1
@@ -27,5 +27,5 @@ dependencies {
     implementation "com.android.support:appcompat-v7:$supportVersion"
     implementation 'com.android.support.constraint:constraint-layout:1.1.0'
 
-    implementation 'com.github.sihamark:ViewModelExtensions:1.0'
+    implementation 'com.github.mueller-wulff:ViewModelExtensions:-SNAPSHOT'
 }

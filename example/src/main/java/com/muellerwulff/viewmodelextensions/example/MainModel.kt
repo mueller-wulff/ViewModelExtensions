@@ -1,9 +1,9 @@
-package com.sihamark.viewmodelextensions.example
+package com.muellerwulff.viewmodelextensions.example
 
 import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
-import com.sihamark.viewmodelextensions.asLiveData
-import com.sihamark.viewmodelextensions.requireValue
+import com.muellerwulff.viewmodelextensions.asLiveData
+import com.muellerwulff.viewmodelextensions.requireValue
 import java.util.*
 
 /**
