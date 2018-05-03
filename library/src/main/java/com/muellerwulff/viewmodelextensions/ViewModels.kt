@@ -2,7 +2,7 @@
  * Copyright (c) 2018.  Müller & Wulff GmbH. All rights reserved.
  */
 
-package com.sihamark.viewmodelextensions
+package com.muellerwulff.viewmodelextensions
 
 import android.app.Application
 import android.arch.lifecycle.*
