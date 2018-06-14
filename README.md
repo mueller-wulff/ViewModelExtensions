@@ -67,7 +67,7 @@ allprojects {
 
 add ViewModelExtensions to application build.gradle
 ```groovy
-implementation 'com.github.sihamark:ViewModelExtensions:1.0'
+implementation 'com.github.mueller-wulff:ViewModelExtensions:1.1'
 ```
 
 License
