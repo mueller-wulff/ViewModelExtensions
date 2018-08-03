@@ -76,6 +76,8 @@ fun <T> LiveData<T>.observeRequired(owner: LifecycleOwner, observer: (T) -> Unit
 	})
 }
 
+fun <T> liveDataOf(default: T? = null) = MutableLiveData<T>().apply { value = default }
+
 fun <T> MutableLiveData<T>.asLiveData(): LiveData<T> = this
 
 fun <T> LiveData<T>.requireValue(): T = value ?: error("no value given")

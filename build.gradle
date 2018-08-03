@@ -2,7 +2,7 @@
 
 buildscript {
     ext{
-        kotlinVersion = '1.2.41'
+        kotlinVersion = '1.2.60'
         supportVersion = '27.1.1'
         architectureVersion = '1.1.1'
     }
