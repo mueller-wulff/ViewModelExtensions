@@ -23,9 +23,9 @@ class MainActivity : AppCompatActivity() {
 			)
 		}
 
-		model.number.observeRequired(this, {
+		model.number.observeRequired(this) {
 			binding.number = it.toString()
-		})
+		}
 
 		binding.setOnClickPrint { binding.text = model.print() }
 	}
