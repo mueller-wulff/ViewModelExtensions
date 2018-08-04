@@ -1,8 +1,8 @@
 package com.muellerwulff.viewmodelextensions.example
 
-import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
 import com.muellerwulff.viewmodelextensions.asLiveData
+import com.muellerwulff.viewmodelextensions.liveDataOf
 import com.muellerwulff.viewmodelextensions.requireValue
 import java.util.*
 
@@ -16,7 +16,7 @@ class MainModel(
 	number: Int
 ) : ViewModel() {
 
-	private val _number = MutableLiveData<Int>().apply { value = number }
+	private val _number = liveDataOf(number)
 	val number = _number.asLiveData()
 
 	fun print(): String {
