@@ -1,5 +1,9 @@
 # Changelog
 
+## Version 1.2
+
+- updated example project and added new utility method `liveDataOf`
+
 ## Version 1.1
 
 - changed dependency group, applicationId and package to mueller-wulff

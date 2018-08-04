@@ -49,6 +49,20 @@ val test: Test = model.test().requireValue() //test is not null
 **NOTE**: This does not prevent you from setting `null` on a `LiveData`. When using a 
 `require`-method on a `LiveData` that holds a `null` value, an exception is thrown.
 
+Utility Methods
+---------------
+
+To create a `MutableLiveData` object you can use the `liveDataOf` method and to turn it into a 
+`LiveData` with the `asLiveData` extension, like:
+
+```kotlin
+private val _number = liveDataOf(5)
+val number = _number.asLiveData()
+```
+
+When using a `AndroidViewModel` there is now an extension property to access the `application` 
+without using the getter.
+
 Installation
 ------------
 
@@ -67,7 +81,7 @@ allprojects {
 
 add ViewModelExtensions to application build.gradle
 ```groovy
-implementation 'com.github.mueller-wulff:ViewModelExtensions:1.1'
+implementation 'com.github.mueller-wulff:ViewModelExtensions:1.2'
 ```
 
 License
