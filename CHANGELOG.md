@@ -1,5 +1,10 @@
 # Changelog
 
+## Version 1.3
+
+- updated kotlin to 1.2.61
+- updated android plugin to 3.1.4
+
 ## Version 1.2
 
 - updated example project and added new utility method `liveDataOf`
