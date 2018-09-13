@@ -81,3 +81,9 @@ fun <T> liveDataOf(default: T? = null) = MutableLiveData<T>().apply { value = de
 fun <T> MutableLiveData<T>.asLiveData(): LiveData<T> = this
 
 fun <T> LiveData<T>.requireValue(): T = value ?: error("no value given")
+
+fun <X, Y> LiveData<X>.map(transform: (X) -> Y) =
+    Transformations.map(this, transform)
+
+fun <X, Y> LiveData<X>.switchMap(transform: (X) -> LiveData<Y>) =
+    Transformations.switchMap(this, transform)

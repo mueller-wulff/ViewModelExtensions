@@ -1,5 +1,9 @@
 # Changelog
 
+## Version 1.5
+
+- added extension methods on LiveData for transformations
+
 ## Version 1.4
 
 - updated kotlin to 1.2.61

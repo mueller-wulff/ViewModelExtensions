@@ -27,10 +27,10 @@ android {
 }
 
 dependencies {
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlinVersion"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 
-    implementation "com.android.support:appcompat-v7:$supportVersion"
-    implementation "android.arch.lifecycle:extensions:$architectureVersion"
+    implementation "com.android.support:appcompat-v7:$support_version"
+    implementation "android.arch.lifecycle:extensions:$architecture_version"
 }
 
 // build a jar with source files
