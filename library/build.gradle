@@ -5,7 +5,7 @@ apply plugin: 'kotlin-kapt'
 
 apply plugin: 'com.github.dcendents.android-maven'
 
-group='com.github.mueller-wulff'
+group = 'com.github.mueller-wulff'
 
 android {
     compileSdkVersion 27
@@ -33,7 +33,6 @@ dependencies {
     implementation "android.arch.lifecycle:extensions:$architectureVersion"
 }
 
-
 // build a jar with source files
 task sourcesJar(type: Jar) {
     from android.sourceSets.main.java.srcDirs
@@ -41,7 +40,7 @@ task sourcesJar(type: Jar) {
 }
 
 task javadoc(type: Javadoc) {
-    failOnError  false
+    failOnError false
     source = android.sourceSets.main.java.sourceFiles
     classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
     classpath += configurations.compile
