@@ -10,28 +10,23 @@ import com.muellerwulff.viewmodelextensions.viewModel
 
 class MainActivity : AppCompatActivity() {
 
-	private lateinit var binding: ActivityMainBinding
-	private lateinit var model: MainModel
+    private lateinit var binding: ActivityMainBinding
+    private val model by lazy { viewModel { MainModel("this is a text: ", 8649) } }
 
-	override fun onCreate(savedInstanceState: Bundle?) {
-		super.onCreate(savedInstanceState)
-		binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
-		model = viewModel {
-			MainModel(
-				"this is a text: ",
-				8649
-			)
-		}
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
+        binding.version = model.version
 
-		model.number.observeRequired(this) {
-			binding.number = it.toString()
-		}
+        model.number.observeRequired(this) {
+            binding.number = it.toString()
+        }
 
-		binding.setOnClickPrint { binding.text = model.print() }
-	}
+        binding.setOnClickPrint { binding.text = model.print() }
+    }
 
-	override fun onResume() {
-		super.onResume()
-		binding.number = model.number.requireValue().toString()
-	}
+    override fun onResume() {
+        super.onResume()
+        binding.number = model.number.requireValue().toString()
+    }
 }

@@ -12,15 +12,17 @@ import java.util.*
  * created at 01.05.2018.
  */
 class MainModel(
-	private val string: String,
-	number: Int
+    private val string: String,
+    number: Int
 ) : ViewModel() {
 
-	private val _number = liveDataOf(number)
-	val number = _number.asLiveData()
+    val version = "${BuildConfig.VERSION_NAME} (${BuildConfig.VERSION_CODE})"
 
-	fun print(): String {
-		_number.value = _number.requireValue() + 1
-		return string + UUID.randomUUID().toString()
-	}
+    private val _number = liveDataOf(number)
+    val number = _number.asLiveData()
+
+    fun print(): String {
+        _number.value = _number.requireValue() + 1
+        return string + UUID.randomUUID().toString()
+    }
 }
