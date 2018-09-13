@@ -23,7 +23,7 @@ ViewModelProviders.of(fragment, object: ViewModelProvider.Factory {
 })[T::class.java]
 ```
 
-instead you can use easy to use extension method inside a `FragmentActivity` or `Fragment`:
+instead you can use easy-to-use extension method inside a `FragmentActivity` or `Fragment`:
 
 ```kotlin
 val model: MyViewModel = viewModel()
@@ -36,7 +36,7 @@ val model: MyViewModel = viewModel { MyViewModel("a string", 12) }
 ```
 
 When working with `LiveData` it is always a hassle to check for nullable value. 
-This library adds some methods to get non-nullable values:
+This library adds some methods to get non-null values:
 
 ```kotlin
 model.test().observeRequired(this) { test -> 
@@ -64,7 +64,7 @@ When using a `AndroidViewModel` there is now an extension property to access the
 without using the getter.
 
 When wanting to transform `LiveData` with [Transformations](https://developer.android.com/reference/android/arch/lifecycle/Transformations)
-you can now use extension method like:
+you can now use an extension method like:
 
 ```kotlin
 private val _number = liveDataOf(5)
