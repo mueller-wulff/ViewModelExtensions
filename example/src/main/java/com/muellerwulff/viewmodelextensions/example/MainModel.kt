@@ -3,6 +3,7 @@ package com.muellerwulff.viewmodelextensions.example
 import android.arch.lifecycle.ViewModel
 import com.muellerwulff.viewmodelextensions.asLiveData
 import com.muellerwulff.viewmodelextensions.liveDataOf
+import com.muellerwulff.viewmodelextensions.map
 import com.muellerwulff.viewmodelextensions.requireValue
 import java.util.*
 
@@ -13,13 +14,15 @@ import java.util.*
  */
 class MainModel(
     private val string: String,
-    number: Int
+    initialNumber: Int
 ) : ViewModel() {
 
     val version = "${BuildConfig.VERSION_NAME} (${BuildConfig.VERSION_CODE})"
 
-    private val _number = liveDataOf(number)
+    private val _number = liveDataOf(initialNumber)
     val number = _number.asLiveData()
+
+    val numberMultitude = number.map { it * 25 }
 
     fun print(): String {
         _number.value = _number.requireValue() + 1

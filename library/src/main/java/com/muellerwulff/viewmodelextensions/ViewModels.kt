@@ -82,8 +82,8 @@ fun <T> MutableLiveData<T>.asLiveData(): LiveData<T> = this
 
 fun <T> LiveData<T>.requireValue(): T = value ?: error("no value given")
 
-fun <X, Y> LiveData<X>.map(transform: (X) -> Y) =
+fun <X, Y> LiveData<X>.map(transform: (X) -> Y): LiveData<Y> =
     Transformations.map(this, transform)
 
-fun <X, Y> LiveData<X>.switchMap(transform: (X) -> LiveData<Y>) =
+fun <X, Y> LiveData<X>.switchMap(transform: (X) -> LiveData<Y>): LiveData<Y> =
     Transformations.switchMap(this, transform)

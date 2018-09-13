@@ -63,6 +63,16 @@ val number = _number.asLiveData()
 When using a `AndroidViewModel` there is now an extension property to access the `application` 
 without using the getter.
 
+When wanting to transform `LiveData` with [Transformations](https://developer.android.com/reference/android/arch/lifecycle/Transformations)
+you can now use extension method like:
+
+```kotlin
+private val _number = liveDataOf(5)
+val number = _number.asLiveData()
+
+val numberMultitude = number.map { it * 25 }
+```
+
 Installation
 ------------
 
@@ -81,7 +91,7 @@ allprojects {
 
 add ViewModelExtensions to application build.gradle
 ```groovy
-implementation 'com.github.mueller-wulff:ViewModelExtensions:1.2'
+implementation 'com.github.mueller-wulff:ViewModelExtensions:1.6'
 ```
 
 License

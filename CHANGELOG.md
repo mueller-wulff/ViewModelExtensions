@@ -1,6 +1,6 @@
 # Changelog
 
-## Version 1.5
+## Version 1.6
 
 - added extension methods on LiveData for transformations
 
