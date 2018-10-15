@@ -5,9 +5,9 @@
 package com.muellerwulff.viewmodelextensions
 
 import android.app.Application
-import android.arch.lifecycle.*
-import android.support.v4.app.Fragment
-import android.support.v4.app.FragmentActivity
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentActivity
+import androidx.lifecycle.*
 
 /**
  * Created by Hans Markwart on 16.03.2018

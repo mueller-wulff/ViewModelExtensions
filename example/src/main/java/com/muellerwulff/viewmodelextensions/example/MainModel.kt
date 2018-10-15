@@ -1,6 +1,6 @@
 package com.muellerwulff.viewmodelextensions.example
 
-import android.arch.lifecycle.ViewModel
+import androidx.lifecycle.ViewModel
 import com.muellerwulff.viewmodelextensions.asLiveData
 import com.muellerwulff.viewmodelextensions.liveDataOf
 import com.muellerwulff.viewmodelextensions.map
