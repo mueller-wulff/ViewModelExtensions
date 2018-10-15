@@ -1,5 +1,9 @@
 # Changelog
 
+## Version 1.6.0
+
+- converted to androidX
+
 ## Version 1.5.1
 
 - added extension methods on LiveData for transformations
