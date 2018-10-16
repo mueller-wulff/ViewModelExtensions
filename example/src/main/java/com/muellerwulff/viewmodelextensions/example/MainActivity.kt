@@ -1,9 +1,11 @@
 package com.muellerwulff.viewmodelextensions.example
 
 import android.os.Bundle
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.muellerwulff.viewmodelextensions.example.databinding.ActivityMainBinding
+import com.muellerwulff.viewmodelextensions.observe
 import com.muellerwulff.viewmodelextensions.observeRequired
 import com.muellerwulff.viewmodelextensions.requireValue
 import com.muellerwulff.viewmodelextensions.viewModel
@@ -23,6 +25,11 @@ class MainActivity : AppCompatActivity() {
         }
         model.numberMultitude.observeRequired(this) {
             binding.multitude = it.toString()
+        }
+        model.warning.observe(this) { event ->
+            event?.getContentIfNotHandled()?.let {
+                Toast.makeText(this, it, Toast.LENGTH_SHORT).show()
+            }
         }
 
         binding.setOnClickPrint { binding.text = model.print() }
