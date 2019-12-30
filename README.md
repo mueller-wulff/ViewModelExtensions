@@ -23,27 +23,27 @@ ViewModelProviders.of(fragment, object: ViewModelProvider.Factory {
 })[T::class.java]
 ```
 
-instead you can use easy-to-use extension method inside a `FragmentActivity` or `Fragment`:
+instead you can use easy-to-use property delegate inside a `ComponentActivity` or `Fragment`:
 
 ```kotlin
-val model: MyViewModel = viewModel()
+val model: MyViewModel by viewModels()
 ```
 
 or when you want to use a custom `ViewModel` with a non-empty constructor:
 
 ```kotlin
-val model: MyViewModel = viewModel { MyViewModel("a string", 12) }
+val model: MyViewModel by viewModelsCustom { MyViewModel("a string", 12) }
 ```
 
 When working with `LiveData` it is always a hassle to check for nullable value. 
 This library adds some methods to get non-null values:
 
 ```kotlin
-model.test().observeRequired(this) { test -> 
+model.test.observeRequired(this) { test -> 
     //test is not null
 }
 
-val test: Test = model.test().requireValue() //test is not null
+val test: Test = model.test.requireValue() //test is not null
 ```
 
 **NOTE**: This does not prevent you from setting `null` on a `LiveData`. When using a 
@@ -52,11 +52,11 @@ val test: Test = model.test().requireValue() //test is not null
 Utility Methods
 ---------------
 
-To create a `MutableLiveData` object you can use the `liveDataOf` method and to turn it into a 
-`LiveData` with the `asLiveData` extension, like:
+To create a `MutableLiveData` object you can use the `mutableLiveDataOf` function. 
+You can turn any `MutableLiveData` into a `LiveData` using the `asLiveData` function:
 
 ```kotlin
-private val _number = liveDataOf(5)
+private val _number = mutableLiveDataOf(5)
 val number = _number.asLiveData()
 ```
 
