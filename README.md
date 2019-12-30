@@ -49,6 +49,35 @@ val test: Test = model.test.requireValue() //test is not null
 **NOTE**: This does not prevent you from setting `null` on a `LiveData`. When using a 
 `require`-method on a `LiveData` that holds a `null` value, an exception is thrown.
 
+Events
+------
+
+When wanting to publish events as live data, there is a problem when multiple observers register to 
+the same `LiveData`, because normal `LiveData` does not regulate consuming of events. 
+
+There is a solution presenting by Jose Alcérreca on Medium
+(find it [here](https://medium.com/androiddevelopers/livedata-with-snackbar-navigation-and-other-events-the-singleliveevent-case-ac2622673150))
+, where a new Event class is introduced to regulate consuming of events.
+
+This `Event` class is now available as part of this library, simply define a `LiveData` of an `Event`:
+
+```kotlin
+private val _warning = liveDataOf<Event<String>>()
+val warning = _warning.asLiveData()
+```
+
+and then you can consume the event in the activity or fragment of you choice:
+
+```kotlin
+model.warning.observe(this) { event ->
+    event?.getContentIfNotHandled()?.let {
+        Toast.makeText(this, it, Toast.LENGTH_SHORT).show()
+    }
+}
+```
+
+this will guarantee that the event is only consumed once.
+
 Utility Methods
 ---------------
 
@@ -91,7 +120,7 @@ allprojects {
 
 add ViewModelExtensions to application build.gradle
 ```groovy
-implementation 'com.github.mueller-wulff:ViewModelExtensions:1.6.1'
+implementation 'com.github.mueller-wulff:ViewModelExtensions:1.6.3'
 ```
 
 License

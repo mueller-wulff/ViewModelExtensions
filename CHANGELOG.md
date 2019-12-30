@@ -1,5 +1,9 @@
 # Changelog
 
+## Version 1.6.3
+
+- added Event class to handle events with LiveData
+
 ## Version 1.6.1
 
 - converted to androidX
