@@ -20,7 +20,6 @@ import androidx.lifecycle.*
 
 @MainThread
 inline fun <reified VM : ViewModel> ComponentActivity.viewModelsCustom(
-    noinline ownerProducer: () -> ViewModelStoreOwner = { this },
     noinline viewModelProducer: (() -> VM)
 ) = viewModels<VM> { SpecificFactory.create(viewModelProducer) }
 

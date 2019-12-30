@@ -32,5 +32,6 @@ dependencies {
 
     implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
 
+//    implementation 'com.github.mueller-wulff:ViewModelExtensions:feature_modernize_big_time-SNAPSHOT'
     implementation project(':library')
 }
