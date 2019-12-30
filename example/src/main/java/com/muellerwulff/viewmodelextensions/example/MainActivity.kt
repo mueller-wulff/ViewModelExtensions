@@ -8,12 +8,12 @@ import com.muellerwulff.viewmodelextensions.example.databinding.ActivityMainBind
 import com.muellerwulff.viewmodelextensions.observe
 import com.muellerwulff.viewmodelextensions.observeRequired
 import com.muellerwulff.viewmodelextensions.requireValue
-import com.muellerwulff.viewmodelextensions.viewModel
+import com.muellerwulff.viewmodelextensions.viewModelsCustom
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
-    private val model by lazy { viewModel { MainModel("this is a text: ", 8649) } }
+    private val model by viewModelsCustom { MainModel("this is a text: ", 8649) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,8 +27,8 @@ class MainActivity : AppCompatActivity() {
             binding.multitude = it.toString()
         }
         model.warning.observe(this) { event ->
-            event?.getContentIfNotHandled()?.let {
-                Toast.makeText(this, it, Toast.LENGTH_SHORT).show()
+            event?.getContentIfNotHandled()?.let { warning ->
+                Toast.makeText(this, warning, Toast.LENGTH_SHORT).show()
             }
         }
 

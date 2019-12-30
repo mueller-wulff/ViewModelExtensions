@@ -15,15 +15,16 @@ class MainModel(
 ) : ViewModel() {
 
     private var numberOfGenerations = 0
+
+    private val _warning = mutableLiveDataOf<Event<String>>()
+    val warning = _warning.asLiveData()
+
     val version = "${BuildConfig.VERSION_NAME} (${BuildConfig.VERSION_CODE})"
 
-    private val _number = liveDataOf(initialNumber)
+    private val _number = mutableLiveDataOf(initialNumber)
     val number = _number.asLiveData()
 
     val numberMultitude = number.map { it * 25 }
-
-    private val _warning = liveDataOf<Event<String>>()
-    val warning = _warning.asLiveData()
 
     fun print(): String {
         numberOfGenerations++

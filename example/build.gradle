@@ -4,18 +4,17 @@ apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 
 android {
-    compileSdkVersion 28
+    compileSdkVersion 29
 
     defaultConfig {
         applicationId "com.muellerwulff.viewmodelextensions.example"
         minSdkVersion 14
-        targetSdkVersion 28
+        targetSdkVersion 29
         versionCode version_code
         versionName version_name
 
         dataBinding.enabled = true
     }
-
     buildTypes {
         release {
             minifyEnabled false
@@ -28,9 +27,10 @@ dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 
     implementation "androidx.appcompat:appcompat:$appcompat_version"
+    implementation "androidx.activity:activity-ktx:$activity_version"
     implementation "androidx.lifecycle:lifecycle-extensions:$lifecycle_version"
 
     implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
 
-    implementation 'com.github.mueller-wulff:ViewModelExtensions:1.6.3'
+    implementation project(':library')
 }
