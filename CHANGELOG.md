@@ -1,5 +1,10 @@
 # Changelog
 
+## Version 1.7.0
+
+- switched to using property delegates
+- updated maven publishing
+
 ## Version 1.6.3
 
 - added Event class to handle events with LiveData
