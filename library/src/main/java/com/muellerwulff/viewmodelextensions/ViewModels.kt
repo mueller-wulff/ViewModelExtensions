@@ -5,60 +5,54 @@
 package com.muellerwulff.viewmodelextensions
 
 import android.app.Application
+import androidx.activity.ComponentActivity
+import androidx.activity.viewModels
+import androidx.annotation.MainThread
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentActivity
+import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.*
 
 /**
  * Created by Hans Markwart on 16.03.2018
  */
 
-object ViewModels {
 
-    inline fun <reified T : ViewModel> of(
-        fragment: Fragment,
-        noinline factory: ((modelClass: Class<*>) -> T)? = null
-    ): T =
-        if (factory == null) {
-            ViewModelProviders.of(fragment)[T::class.java]
-        } else {
-            ViewModelProviders.of(
-                fragment,
-                FunctionalViewModelFactory(factory)
-            )[T::class.java]
-        }
+@MainThread
+inline fun <reified VM : ViewModel> ComponentActivity.viewModelsCustom(
+    noinline ownerProducer: () -> ViewModelStoreOwner = { this },
+    noinline viewModelProducer: (() -> VM)
+) = viewModels<VM> { SpecificFactory.create(viewModelProducer) }
 
-    inline fun <reified T : ViewModel> of(
-        activity: FragmentActivity,
-        noinline factory: ((modelClass: Class<*>) -> T)? = null
-    ): T =
-        if (factory == null) {
-            ViewModelProviders.of(activity)[T::class.java]
-        } else {
-            ViewModelProviders.of(
-                activity,
-                FunctionalViewModelFactory(factory)
-            )[T::class.java]
-        }
+@MainThread
+inline fun <reified VM : ViewModel> Fragment.viewModelsCustom(
+    noinline ownerProducer: () -> ViewModelStoreOwner = { this },
+    noinline viewModelProducer: (() -> VM)
+) = viewModels<VM>(
+    { ownerProducer() },
+    { SpecificFactory.create(viewModelProducer) })
 
-    class FunctionalViewModelFactory<VM>(
-        private val factory: (modelClass: Class<*>) -> VM
-    ) : ViewModelProvider.Factory {
-        @Suppress("UNCHECKED_CAST")
-        override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-            return factory(modelClass) as? T
-                ?: error("cannot create ${modelClass.simpleName} from supplied factory")
-        }
+@MainThread
+inline fun <reified VM : ViewModel> Fragment.activityViewModelsCustom(
+    noinline viewModelProducer: (() -> VM)
+) = activityViewModels<VM> { SpecificFactory.create(viewModelProducer) }
+
+
+@Suppress("UNCHECKED_CAST")
+class SpecificFactory<VM : ViewModel>(
+    private val producerClass: Class<VM>,
+    private val producer: () -> VM
+) : ViewModelProvider.Factory {
+    override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+        if (producerClass != modelClass) error("this factory can only create instances of $producerClass, $producerClass is not supported")
+        return producer() as T
+    }
+
+    companion object {
+        inline fun <reified VM : ViewModel> create(noinline producer: () -> VM) =
+            SpecificFactory(VM::class.java, producer)
     }
 }
-
-//view model creation
-
-inline fun <reified T : ViewModel> Fragment.viewModel(noinline factory: ((modelClass: Class<*>) -> T)? = null): T =
-    ViewModels.of(this, factory)
-
-inline fun <reified T : ViewModel> FragmentActivity.viewModel(noinline factory: ((modelClass: Class<*>) -> T)? = null): T =
-    ViewModels.of(this, factory)
 
 //view model
 
@@ -76,7 +70,7 @@ fun <T> LiveData<T>.observeRequired(owner: LifecycleOwner, observer: (T) -> Unit
     })
 }
 
-fun <T> liveDataOf(default: T? = null) = MutableLiveData<T>().apply { value = default }
+fun <T> mutableLiveDataOf(default: T? = null) = MutableLiveData<T>(default)
 
 fun <T> MutableLiveData<T>.asLiveData(): LiveData<T> = this
 
