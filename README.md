@@ -35,17 +35,6 @@ or when you want to use a custom `ViewModel` with a non-empty constructor:
 val model: MyViewModel by viewModelsCustom { MyViewModel("a string", 12) }
 ```
 
-When working with `LiveData` it is always a hassle to check for nullable value. 
-This library adds some methods to get non-null values:
-
-```kotlin
-
-val test: Test = model.test.requireValue() //test is not null
-```
-
-**NOTE**: This does not prevent you from setting `null` on a `LiveData`. When using a 
-`require`-method on a `LiveData` that holds a `null` value, an exception is thrown.
-
 Migrating from version 1.7.0 to 1.8.0
 -------------------------------------
 

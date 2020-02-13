@@ -120,7 +120,7 @@ val AndroidViewModel.application: Application
     get() = getApplication()
 
 /**
- * creates a [MutableLiveData] with a an initial value of [value]
+ * creates a [MutableLiveData] with a an initial value of [LiveData.getValue]
  */
 fun <T> mutableLiveDataOf(default: T? = null) = MutableLiveData<T>(default)
 
@@ -128,8 +128,3 @@ fun <T> mutableLiveDataOf(default: T? = null) = MutableLiveData<T>(default)
  * turns this [MutableLiveData] into a [LiveData]
  */
 fun <T> MutableLiveData<T>.asLiveData(): LiveData<T> = this
-
-/**
- * gets the non-null value of this [LiveData], throws a NullPointerException if the value is null
- */
-fun <T> LiveData<T>.requireValue(): T = value ?: throw NullPointerException("value is null")
