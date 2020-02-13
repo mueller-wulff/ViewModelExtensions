@@ -58,25 +58,8 @@ class SpecificFactory<VM : ViewModel>(
 val AndroidViewModel.application: Application
     get() = getApplication()
 
-fun <T> LiveData<T>.observe(owner: LifecycleOwner, observer: (T?) -> Unit) {
-    this.observe(owner, Observer { observer(it) })
-}
-
-fun <T> LiveData<T>.observeRequired(owner: LifecycleOwner, observer: (T) -> Unit) {
-    this.observe(owner, Observer {
-        if (it == null) return@Observer
-        observer(it)
-    })
-}
-
 fun <T> mutableLiveDataOf(default: T? = null) = MutableLiveData<T>(default)
 
 fun <T> MutableLiveData<T>.asLiveData(): LiveData<T> = this
 
 fun <T> LiveData<T>.requireValue(): T = value ?: error("no value given")
-
-fun <X, Y> LiveData<X>.map(transform: (X) -> Y): LiveData<Y> =
-    Transformations.map(this, transform)
-
-fun <X, Y> LiveData<X>.switchMap(transform: (X) -> LiveData<Y>): LiveData<Y> =
-    Transformations.switchMap(this, transform)

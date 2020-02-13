@@ -4,9 +4,8 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.observe
 import com.muellerwulff.viewmodelextensions.example.databinding.ActivityMainBinding
-import com.muellerwulff.viewmodelextensions.observe
-import com.muellerwulff.viewmodelextensions.observeRequired
 import com.muellerwulff.viewmodelextensions.requireValue
 import com.muellerwulff.viewmodelextensions.viewModelsCustom
 
@@ -20,14 +19,14 @@ class MainActivity : AppCompatActivity() {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
         binding.version = model.version
 
-        model.number.observeRequired(this) {
+        model.number.observe(this) {
             binding.number = it.toString()
         }
-        model.numberMultitude.observeRequired(this) {
+        model.numberMultitude.observe(this) {
             binding.multitude = it.toString()
         }
         model.warning.observe(this) { event ->
-            event?.getContentIfNotHandled()?.let { warning ->
+            event.getContentIfNotHandled()?.let { warning ->
                 Toast.makeText(this, warning, Toast.LENGTH_SHORT).show()
             }
         }
