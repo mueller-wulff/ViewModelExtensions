@@ -1,7 +1,10 @@
 package com.muellerwulff.viewmodelextensions.example
 
 import androidx.lifecycle.ViewModel
-import com.muellerwulff.viewmodelextensions.*
+import androidx.lifecycle.map
+import com.muellerwulff.viewmodelextensions.Event
+import com.muellerwulff.viewmodelextensions.asLiveData
+import com.muellerwulff.viewmodelextensions.mutableLiveDataOf
 import java.util.*
 
 /**
@@ -16,7 +19,7 @@ class MainModel(
 
     private var numberOfGenerations = 0
 
-    private val _warning = mutableLiveDataOf<Event<String>>()
+    private val _warning = mutableLiveDataOf<Event<String>?>()
     val warning = _warning.asLiveData()
 
     val version = "${BuildConfig.VERSION_NAME} (${BuildConfig.VERSION_CODE})"
@@ -32,7 +35,7 @@ class MainModel(
             numberOfGenerations = 0
             _warning.value = Event("did some generations")
         }
-        _number.value = _number.requireValue() + 1
+        _number.value = _number.value!! + 1
         return string + UUID.randomUUID().toString()
     }
 }

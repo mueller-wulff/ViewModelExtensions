@@ -1,5 +1,10 @@
 # Changelog
 
+## Version 1.8.0
+
+- removed `observe`, `observeRequired`, `map` and `switchMap`, because those functions are all
+available through the androidx ktx packages
+
 ## Version 1.7.0
 
 - switched to using property delegates

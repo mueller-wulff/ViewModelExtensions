@@ -120,64 +120,11 @@ val AndroidViewModel.application: Application
     get() = getApplication()
 
 /**
- * shorthand for [LiveData.observe] that allows a lambda to be passed in without using a SAM-conversion:
- *
- * ```
- * viewModel.test.observe(this) { test ->
- *
- * }
- * ```
- *
- * @param owner The [LifecycleOwner] which controls the observer
- * @param observer The observer that will receive the events
+ * creates a [MutableLiveData] with a an initial value of [LiveData.getValue]
  */
-fun <T> LiveData<T>.observe(owner: LifecycleOwner, observer: (T?) -> Unit) {
-    this.observe(owner, Observer { observer(it) })
-}
-
-/**
- * shorthand for [LiveData.observe] that allows a lambda to be passed in without using a SAM-conversion
- * and only passes non-null values to the observer:
- *
- * ```
- * viewModel.test.observeRequired(this) { test ->
- *
- * }
- * ```
- *
- * @param owner The [LifecycleOwner] which controls the observer
- * @param observer The observer that will receive the events
- */
-fun <T> LiveData<T>.observeRequired(owner: LifecycleOwner, observer: (T) -> Unit) {
-    this.observe(owner, Observer {
-        if (it == null) return@Observer
-        observer(it)
-    })
-}
-
-/**
- * creates a [MutableLiveData] with a an initial value of [value]
- */
-fun <T> mutableLiveDataOf(value: T? = null) = MutableLiveData<T>(value)
+fun <T> mutableLiveDataOf(default: T? = null) = MutableLiveData<T>(default)
 
 /**
  * turns this [MutableLiveData] into a [LiveData]
  */
 fun <T> MutableLiveData<T>.asLiveData(): LiveData<T> = this
-
-/**
- * gets the non-null value of this [LiveData], throws a NullPointerException if the value is null
- */
-fun <T> LiveData<T>.requireValue(): T = value ?: throw NullPointerException("value is null")
-
-/**
- * shorthand for [Transformations.map]
- */
-fun <X, Y> LiveData<X>.map(transform: (X) -> Y): LiveData<Y> =
-    Transformations.map(this, transform)
-
-/**
- * shorthand for [Transformations.switchMap]
- */
-fun <X, Y> LiveData<X>.switchMap(transform: (X) -> LiveData<Y>): LiveData<Y> =
-    Transformations.switchMap(this, transform)

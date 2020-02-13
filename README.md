@@ -35,19 +35,21 @@ or when you want to use a custom `ViewModel` with a non-empty constructor:
 val model: MyViewModel by viewModelsCustom { MyViewModel("a string", 12) }
 ```
 
-When working with `LiveData` it is always a hassle to check for nullable value. 
-This library adds some methods to get non-null values:
+Migrating from version 1.7.0 to 1.8.0
+-------------------------------------
 
-```kotlin
-model.test.observeRequired(this) { test -> 
-    //test is not null
-}
+Some functions have been removed, because they are available in the androidx ktx packages.
+Those functions are:
+- `LiveData.observe`
+- `LiveData.observeRequired`
+- `LiveData.map`
+- `LiveData.switchMap`
 
-val test: Test = model.test.requireValue() //test is not null
+All those functions are available by using
+
+```gradle
+implementation "androidx.lifecycle:lifecycle-livedata-ktx:2.2.0"
 ```
-
-**NOTE**: This does not prevent you from setting `null` on a `LiveData`. When using a 
-`require`-method on a `LiveData` that holds a `null` value, an exception is thrown.
 
 Events
 ------
@@ -62,7 +64,7 @@ There is a solution presenting by Jose Alcérreca on Medium
 This `Event` class is now available as part of this library, simply define a `LiveData` of an `Event`:
 
 ```kotlin
-private val _warning = liveDataOf<Event<String>>()
+private val _warning = mutableLiveDataOf<Event<String>>()
 val warning = _warning.asLiveData()
 ```
 
@@ -120,7 +122,7 @@ allprojects {
 
 add ViewModelExtensions to application build.gradle
 ```groovy
-implementation 'com.github.mueller-wulff:ViewModelExtensions:1.7.0'
+implementation 'com.github.mueller-wulff:ViewModelExtensions:1.8.0'
 ```
 
 License
