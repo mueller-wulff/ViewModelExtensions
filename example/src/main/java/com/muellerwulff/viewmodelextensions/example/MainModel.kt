@@ -5,7 +5,6 @@ import androidx.lifecycle.map
 import com.muellerwulff.viewmodelextensions.Event
 import com.muellerwulff.viewmodelextensions.asLiveData
 import com.muellerwulff.viewmodelextensions.mutableLiveDataOf
-import com.muellerwulff.viewmodelextensions.requireValue
 import java.util.*
 
 /**
@@ -36,7 +35,7 @@ class MainModel(
             numberOfGenerations = 0
             _warning.value = Event("did some generations")
         }
-        _number.value = _number.requireValue() + 1
+        _number.value = _number.value!! + 1
         return string + UUID.randomUUID().toString()
     }
 }

@@ -6,7 +6,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.observe
 import com.muellerwulff.viewmodelextensions.example.databinding.ActivityMainBinding
-import com.muellerwulff.viewmodelextensions.requireValue
 import com.muellerwulff.viewmodelextensions.viewModelsCustom
 
 class MainActivity : AppCompatActivity() {
@@ -36,6 +35,6 @@ class MainActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-        binding.number = model.number.requireValue().toString()
+        binding.number = model.number.value!!.toString()
     }
 }
