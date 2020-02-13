@@ -26,7 +26,7 @@ class MainActivity : AppCompatActivity() {
             binding.multitude = it.toString()
         }
         model.warning.observe(this) { event ->
-            event.getContentIfNotHandled()?.let { warning ->
+            event?.getContentIfNotHandled()?.let { warning ->
                 Toast.makeText(this, warning, Toast.LENGTH_SHORT).show()
             }
         }
