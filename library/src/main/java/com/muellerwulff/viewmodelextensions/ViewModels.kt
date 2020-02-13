@@ -14,15 +14,51 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.*
 
 /**
- * Created by Hans Markwart on 16.03.2018
+ * Returns a [Lazy] delegate to access the ComponentActivity's ViewModel.
+ *
+ * It is meant to be used for [ViewModel]s which have a constructor that cannot be called by
+ * [androidx.lifecycle.ViewModelProvider.AndroidViewModelFactory]. The construction is done via the
+ * [viewModelProducer].
+ *
+ * ```
+ * class MyComponentActivity : ComponentActivity() {
+ *     val viewmodel: MyViewModel by viewModelsCustom { MyViewModel(parameter1, parameter2) }
+ * }
+ * ```
+ *
+ * @param viewModelProducer a lambda returning an instance of [VM]
  */
-
-
 @MainThread
 inline fun <reified VM : ViewModel> ComponentActivity.viewModelsCustom(
     noinline viewModelProducer: (() -> VM)
 ) = viewModels<VM> { SpecificFactory.create(viewModelProducer) }
 
+/**
+ * Returns a property delegate to access [ViewModel] by **default** scoped to this [Fragment].
+ *
+ * It is meant to be used for [ViewModel]s which have a constructor that cannot be called by
+ * [androidx.lifecycle.ViewModelProvider.AndroidViewModelFactory]. The construction is done via the
+ * [viewModelProducer].
+ *
+ * ```
+ * class MyFragment : Fragment() {
+ *     val viewmodel: MyViewModel by viewModelsCustom { MyViewModel(parameter1, parameter2) }
+ * }
+ * ```
+ *
+ * Default scope may be overridden with parameter [ownerProducer]:
+ * ```
+ * class MyFragment : Fragment() {
+ *     val viewmodel: MYViewModel by viewModelsCustom ({ requireParentFragment() }, { MyViewModel(parameter1, parameter2) })
+ * }
+ * ```
+ *
+ * This property can be accessed only after this Fragment is attached i.e., after
+ * [Fragment.onAttach()], and access prior to that will result in IllegalArgumentException.
+ *
+ * @param ownerProducer a lambda returning a [ViewModelStoreOwner]
+ * @param viewModelProducer a lambda returning an instance of [VM]
+ */
 @MainThread
 inline fun <reified VM : ViewModel> Fragment.viewModelsCustom(
     noinline ownerProducer: () -> ViewModelStoreOwner = { this },
@@ -31,19 +67,41 @@ inline fun <reified VM : ViewModel> Fragment.viewModelsCustom(
     { ownerProducer() },
     { SpecificFactory.create(viewModelProducer) })
 
+/**
+ * Returns a property delegate to access parent activity's [ViewModel].
+ *
+ * ```
+ * class MyFragment : Fragment() {
+ *     val viewmodel: MyViewModel by activityViewModelsCustom { MyViewModel(parameter1, parameter2) }
+ * }
+ * ```
+ *
+ * This property can be accessed only after this Fragment is attached i.e., after
+ * [Fragment.onAttach()], and access prior to that will result in IllegalArgumentException.
+ *
+ * @param viewModelProducer a lambda returning an instance of [VM]
+ */
 @MainThread
 inline fun <reified VM : ViewModel> Fragment.activityViewModelsCustom(
     noinline viewModelProducer: (() -> VM)
 ) = activityViewModels<VM> { SpecificFactory.create(viewModelProducer) }
 
 
+/**
+ * [androidx.lifecycle.ViewModelProvider.Factory] which can only create [ViewModel]s of type [VM].
+ * When trying to create a different type of [ViewModel], an IllegalStateException is thrown.
+ *
+ * @param producerClass the class, of which instance can be created
+ * @param producer a lambda that returns an instance of [VM]
+ */
 @Suppress("UNCHECKED_CAST")
 class SpecificFactory<VM : ViewModel>(
     private val producerClass: Class<VM>,
     private val producer: () -> VM
 ) : ViewModelProvider.Factory {
+
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-        if (producerClass != modelClass) error("this factory can only create instances of $producerClass, $producerClass is not supported")
+        if (producerClass != modelClass) error("this factory can only create instances of $producerClass, $modelClass is not supported")
         return producer() as T
     }
 
@@ -55,11 +113,23 @@ class SpecificFactory<VM : ViewModel>(
 
 //view model
 
+/**
+ * shorthand for [AndroidViewModel.getApplication]
+ */
 val AndroidViewModel.application: Application
     get() = getApplication()
 
+/**
+ * creates a [MutableLiveData] with a an initial value of [value]
+ */
 fun <T> mutableLiveDataOf(default: T? = null) = MutableLiveData<T>(default)
 
+/**
+ * turns this [MutableLiveData] into a [LiveData]
+ */
 fun <T> MutableLiveData<T>.asLiveData(): LiveData<T> = this
 
-fun <T> LiveData<T>.requireValue(): T = value ?: error("no value given")
+/**
+ * gets the non-null value of this [LiveData], throws a NullPointerException if the value is null
+ */
+fun <T> LiveData<T>.requireValue(): T = value ?: throw NullPointerException("value is null")
