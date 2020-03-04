@@ -64,7 +64,7 @@ There is a solution presenting by Jose Alcérreca on Medium
 This `Event` class is now available as part of this library, simply define a `LiveData` of an `Event`:
 
 ```kotlin
-private val _warning = mutableLiveDataOf<Event<String>>()
+private val _warning = mutableLiveDataOf<Event<String>?>()
 val warning = _warning.asLiveData()
 ```
 
