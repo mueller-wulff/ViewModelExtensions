@@ -3,6 +3,7 @@ package com.muellerwulff.viewmodelextensions.example
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.map
 import com.muellerwulff.viewmodelextensions.Event
+import com.muellerwulff.viewmodelextensions.asEvent
 import com.muellerwulff.viewmodelextensions.asLiveData
 import com.muellerwulff.viewmodelextensions.mutableLiveDataOf
 import java.util.*
@@ -33,7 +34,7 @@ class MainModel(
         numberOfGenerations++
         if (numberOfGenerations > 5) {
             numberOfGenerations = 0
-            _warning.value = Event("did some generations")
+            _warning.value = "did some generations".asEvent()
         }
         _number.value = _number.value!! + 1
         return string + UUID.randomUUID().toString()
