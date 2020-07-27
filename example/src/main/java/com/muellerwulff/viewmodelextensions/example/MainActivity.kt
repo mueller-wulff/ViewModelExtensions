@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.observe
 import com.muellerwulff.viewmodelextensions.example.databinding.ActivityMainBinding
+import com.muellerwulff.viewmodelextensions.observeEvent
 import com.muellerwulff.viewmodelextensions.viewModelsCustom
 
 class MainActivity : AppCompatActivity() {
@@ -24,10 +25,9 @@ class MainActivity : AppCompatActivity() {
         model.numberMultitude.observe(this) {
             binding.multitude = it.toString()
         }
-        model.warning.observe(this) { event ->
-            event?.getContentIfNotHandled()?.let { warning ->
-                Toast.makeText(this, warning, Toast.LENGTH_SHORT).show()
-            }
+
+        model.warning.observeEvent(this) { warning ->
+            Toast.makeText(this, warning, Toast.LENGTH_SHORT).show()
         }
 
         binding.setOnClickPrint { binding.text = model.print() }
