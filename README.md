@@ -80,6 +80,13 @@ model.warning.observe(this) { event ->
 
 this will guarantee that the event is only consumed once.
 
+For more convenience use the short-hand extension function:
+```kotlin
+model.warning.observeEvent(this) { warning ->
+    Toast.makeText(this, warning, Toast.LENGTH_SHORT).show()
+}
+```
+
 Utility Methods
 ---------------
 
