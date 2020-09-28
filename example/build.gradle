@@ -12,8 +12,6 @@ android {
         targetSdkVersion 29
         versionCode version_code
         versionName version_name
-
-        dataBinding.enabled = true
     }
     buildTypes {
         release {
