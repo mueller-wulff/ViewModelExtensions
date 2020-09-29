@@ -1,5 +1,10 @@
 # Changelog
 
+## Version 1.9.0
+
+- added `observeEvent` function
+- updated kotlin and android gradle plugin
+
 ## Version 1.8.0
 
 - removed `observe`, `observeRequired`, `map` and `switchMap`, because those functions are all
