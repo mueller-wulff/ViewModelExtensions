@@ -1,5 +1,7 @@
 # View Model Extensions
 
+**This Project is deprecated because of the development of ktx-libs of the jetpack-lifecycle libraries and the arrival of jetpack compose.**
+
 [![](https://jitpack.io/v/mueller-wulff/ViewModelExtensions.svg)](https://jitpack.io/#mueller-wulff/ViewModelExtensions)
 
 This is a small collection of helper classes/methods to simplify the usage of `ViewModel` in kotlin projects.
